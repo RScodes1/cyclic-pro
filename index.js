@@ -1,13 +1,11 @@
 const express = require('express');
 const app = express();
-const cors = require('cors');
-
 require('dotenv').config();
 const { connection } = require('./config/db');
 const { userRouter } = require('./routes/user.routes');
 const { noteRouter } = require('./routes/note.routes');
 
-app.use(cors()); 
+const cors = require('cors');
 
 app.get('/', (req, res) => {
     res.send({"msg": "hi to the server"});
@@ -16,6 +14,7 @@ app.get('/', (req, res) => {
 app.use(express.json());
 app.use('/users', userRouter);
 app.use('/notes', noteRouter);
+app.use(cors());
 
 app.listen(process.env.PORT, async () => {
     try {
